@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=DBeaver
+Comment=Database Manager
+Exec=/programs/dbeaver/dbeaver
+Icon=/programs/dbeaver/icon.xpm
+Terminal=False

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=BIRT
+Comment=Report Designer
+Exec=/programs/birt/birt
+Icon=/programs/birt/plugins/org.eclipse.birt.report.viewer_4.16.0.v202406141054/birt/webcontent/birt/images/BIRT-Icon-large.png
+Terminal=False

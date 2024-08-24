@@ -1,0 +1,25 @@
+---
+services:
+  webtop:
+    #image: lscr.io/linuxserver/webtop:debian-mate
+    image: nurs6293_desktop
+    container_name: webtop
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - TITLE=NURS6293 Desktop Environment #optional
+    volumes:
+      - /Users/andrewhill/Documents/nurs6293_environment/host_shared:/config
+    ports:
+      - 3000:3000
+    shm_size: "1gb" #optional
+    restart: unless-stopped
+  postgres:
+    image: postgres:15-bookworm
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: unless-stopped
