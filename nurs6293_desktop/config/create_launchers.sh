@@ -7,11 +7,13 @@ LAUNCHER_ROOT="/usr/local/share/applications"
 
 LAUNCHERS=("birt.desktop" "dbeaver.desktop" "pgmodeler.desktop")
 
+mkdir -p "/config/Desktop"
+
 for LAUNCHER in "${LAUNCHERS[@]}"
 do
     LAUNCHER_PATH="/config/Desktop/$LAUNCHER"
     if [[ ! -f $LAUNCHER_PATH ]]
     then
-        cp "$LAUNCHER_ROOT/$LAUNCHER" $LAUNCHER_PATH
+        cp "$LAUNCHER_ROOT/$LAUNCHER" $LAUNCHER_PATH && chmod +x $LAUNCHER_PATH
     fi
 done

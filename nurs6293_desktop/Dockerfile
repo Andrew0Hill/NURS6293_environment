@@ -55,7 +55,11 @@ ADD config/birt.desktop /usr/local/share/applications/birt.desktop
 ADD config/dbeaver.desktop /usr/local/share/applications/dbeaver.desktop
 ADD config/pgmodeler.desktop /usr/local/share/applications/pgmodeler.desktop
 
+# Make a host shared folder
+RUN mkdir -p /config/Desktop/host_shared
+
 # Run the script which creates the application launchers on the desktop.
 ADD config/create_launchers.sh ./create_launchers.sh
 RUN chmod +x create_launchers.sh && \
-    ./create_launchers.sh
+    ./create_launchers.sh && \
+    rm ./create_launchers.sh
