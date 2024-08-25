@@ -19,4 +19,4 @@ then
 fi
 
 # Build image.
-cd $IMAGE_DIR && docker buildx build --load --platform=linux/arm64,linux/amd64 --tag nurs6293_desktop .
+cd $IMAGE_DIR && docker buildx build --push --platform=linux/arm64,linux/amd64 --tag andrew2hill/nurs6293_desktop .

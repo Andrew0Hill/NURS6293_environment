@@ -1,9 +1,8 @@
 ---
 services:
   webtop:
-    #image: lscr.io/linuxserver/webtop:debian-mate
-    image: nurs6293_desktop
-    container_name: webtop
+    image: andrew2hill/nurs6293_desktop:latest
+    container_name: desktop
     security_opt:
       - seccomp:unconfined #optional
     environment:
