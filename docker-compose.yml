@@ -2,13 +2,14 @@
 services:
   webtop:
     image: andrew2hill/nurs6293_desktop:latest
-    container_name: desktop
+    container_name: nurs6293_desktop
     security_opt:
       - seccomp:unconfined #optional
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - CUSTOM_USER=student
+      - TZ=America/Denver
       - TITLE=NURS6293 Desktop Environment #optional
     volumes:
       - ./host_shared:/config/Desktop/host_shared
@@ -17,7 +18,8 @@ services:
     shm_size: "1gb" #optional
     restart: unless-stopped
   postgres:
-    image: postgres:15-bookworm
+    image: andrew2hill/nurs6293_database:latest
+    container_name: nurs6293_database
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

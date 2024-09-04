@@ -1,8 +1,21 @@
 #!/bin/bash
 # This script builds the nurs6293_desktop Docker image.
 
-IMAGE_DIR="nurs6293_desktop"
-ARTIFACT_DIR="$IMAGE_DIR/artifacts"
+# Relative directory to download artifacts.
+ARTIFACT_DIR="artifacts"
+
+# Get the path to the script directory.
+CUR_DIR=$(dirname -- "$0")
+CUR_DIR_PATH=$(realpath "$CUR_DIR")
+
+# Move into the correct directory if we are not there already.
+PWD=$(pwd)
+ echo "Current working directory is '$PWD'."
+if [[ "$PWD" != "$CUR_DIR_PATH" ]]
+then
+   echo "Moving to '$CUR_DIR_PATH' to execute script."
+    cd "$CUR_DIR_PATH"
+fi
 
 # Pull artifacts if not done already.
 ./pull_artifacts.sh $ARTIFACT_DIR
@@ -19,4 +32,4 @@ then
 fi
 
 # Build image.
-cd $IMAGE_DIR && docker buildx build --push --platform=linux/arm64,linux/amd64 --tag andrew2hill/nurs6293_desktop .
+cd $CUR_DIR_PATH && docker buildx build --push --platform=linux/arm64,linux/amd64 --tag andrew2hill/nurs6293_desktop .
