@@ -11,7 +11,7 @@ These scripts are a wrapper around `docker compose` which will start the contain
 ## Running via `docker compose`
 1. Ensure you have Docker Desktop installed on your computer then run `docker compose up` from the root directory of this repository. 
 2. Navigate to `localhost:3000` in your web browser.
-3. To connect to the Postgres container, use hostname `db:5432`.
+3. To connect to the Postgres container, use hostname `postgres:5432`.
 
 
 # Building the environment
