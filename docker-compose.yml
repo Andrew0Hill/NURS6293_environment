@@ -12,7 +12,7 @@ services:
       - TZ=America/Denver
       - TITLE=NURS6293 Desktop Environment #optional
     volumes:
-      - ./host_shared:/config/Desktop/host_shared
+      - ./host_shared:/config
     ports:
       - 3000:3000
     shm_size: "1gb" #optional

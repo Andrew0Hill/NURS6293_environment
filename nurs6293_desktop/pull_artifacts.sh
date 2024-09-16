@@ -22,6 +22,11 @@ pull_url() {
 mkdir -p "$OUTPUT_DIR"
 echo "Binaries will be downloaded to '$OUTPUT_DIR'..."
 
+# JDBC Postgres Driver (v4.27.4)
+JDBC_POSTGRES_BASE_URL="https://jdbc.postgresql.org/download"
+JDBC_POSTGRES_JAR="postgresql-42.7.4.jar"
+pull_url "$JDBC_POSTGRES_BASE_URL/$JDBC_POSTGRES_JAR" "$OUTPUT_DIR/$JDBC_POSTGRES_JAR"
+
 # Eclipse BIRT Download (v4.16.0)
 BIRT_BASE_URL="https://mirror.umd.edu/eclipse/birt/updates/release/4.16.0/downloads"
 BIRT_ARM64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.aarch64.tar.gz"
