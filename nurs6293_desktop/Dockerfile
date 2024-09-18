@@ -73,5 +73,8 @@ WORKDIR /scripts
 ADD config/setup_desktop.sh ./setup_desktop.sh
 RUN chmod +x setup_desktop.sh && ln -s /scripts/setup_desktop.sh /custom-cont-init.d/setup_desktop.sh
 
+# Create a default BIRT workspace.
+RUN mkdir -p /birt_workspace && chown 1000 /birt_workspace
+
 # Move workdir back to root.
 WORKDIR /
