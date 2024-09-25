@@ -1,6 +1,28 @@
 #!/bin/bash
 # This script builds the nurs6293_database image.
 
+
+# If we are pushing production image, build for both architecture and push to DockerHub.
+DOCKER_PROD_FLAGS="--push --platform=linux/arm64,linux/amd64"
+
+# If we are building image for testing, just load image locally and don't build alternate arch image.
+DOCKER_DEV_FLAGS="--load" 
+
+DOCKER_TAG_NAME="andrew2hill/nurs6293_database"
+
+case $1 in 
+    --dev)
+        DOCKER_BUILD_FLAGS=$DOCKER_DEV_FLAGS
+        ;;
+    --prod)
+        DOCKER_BUILD_FLAGS=$DOCKER_PROD_FLAGS
+        ;;
+    *)
+        echo "ERROR: Must set either --dev or --prod flag"
+        exit 1
+        ;;
+esac
+
 # Get the path to the script directory.
 CUR_DIR=$(dirname -- "$0")
 CUR_DIR_PATH=$(realpath "$CUR_DIR")
@@ -21,9 +43,12 @@ fi
 docker buildx ls | grep -q arm64-amd64-builder
 if [[ $? == 1 ]]
 then
+    echo "Builder doesn't exist, creating..."
     docker buildx create --use --platform=linux/arm64,linux/amd64 --name=arm64-amd64-builder
     docker buildx inpsect --bootstrap
+else
+    echo "Builder already exists."
 fi
 
-cd $CUR_DIR_PATH && docker buildx build --push --platform=linux/arm64,linux/amd64 --tag andrew2hill/nurs6293_database .
+cd $CUR_DIR_PATH && docker buildx build $DOCKER_BUILD_FLAGS --tag $DOCKER_TAG_NAME .
 

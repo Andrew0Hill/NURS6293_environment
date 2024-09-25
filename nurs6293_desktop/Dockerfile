@@ -1,4 +1,5 @@
-FROM linuxserver/webtop:debian-xfce AS build-common
+# The build-arm64 stage builds the arm64 image.
+FROM linuxserver/webtop:debian-xfce@sha256:aba019c83c77d62c76dc1ed19d0948c1e4316f3be34591e448cd94effb5d24c3 AS build-arm64
 
 # Move to the /program directory 
 WORKDIR /programs
@@ -16,9 +17,6 @@ RUN apt update && apt install -y openjdk-17-jre \
                                  libxml2-dev \
                                  libxext-dev 
 
-# For BIRT and DBeaver, we download architecture specific binaries for amd64 or arm64 architecture.
-FROM build-common AS build-arm64
-
 # Install BIRT (ARM64)
 ARG BIRT_ARM64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.aarch64.tar.gz"
 ADD "artifacts/${BIRT_ARM64_BINARY}" .
@@ -28,7 +26,24 @@ RUN mv eclipse/ birt/
 ARG DBEAVER_ARM64_BINARY="dbeaver-ce-latest-linux.gtk.aarch64-nojdk.tar.gz"
 ADD "artifacts/${DBEAVER_ARM64_BINARY}" .
 
-FROM build-common AS build-amd64
+# The build-amd64 builds the AMD image.
+FROM linuxserver/webtop:debian-xfce@sha256:6edbb9e46f111375018413fb6a8cd1345e67ab7ebbf1633fe4c03b025bedd57d AS build-amd64
+
+# Move to the /program directory 
+WORKDIR /programs
+
+# Make this directory, which is required for openjdk-17-jre to install correctly.
+RUN mkdir -p /usr/share/man/man1
+
+# Install all dependencies needed for installed programs.
+RUN apt update && apt install -y openjdk-17-jre \
+                                 git \
+                                 qt6-base-dev \
+                                 libpqxx-dev \
+                                 libqt6svg6-dev \
+                                 build-essential \
+                                 libxml2-dev \
+                                 libxext-dev 
 
 # Install BIRT (AMD64)
 ARG BIRT_AMD64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.x86_64.tar.gz"
@@ -39,7 +54,9 @@ RUN mv eclipse/ birt/
 ARG DBEAVER_AMD64_BINARY="dbeaver-ce-latest-linux.gtk.x86_64-nojdk.tar.gz"
 ADD "artifacts/${DBEAVER_AMD64_BINARY}" .
 
-FROM build-${TARGETARCH} AS build-full
+# At this stage, all architecture-specific configuration is done. 
+# We can now perform a single set of steps for both architectures to complete the setup.
+FROM build-${TARGETARCH} AS build-common
 
 # Copy the JDBC Driver into the BIRT installation.
 RUN mkdir -p "drivers/"
