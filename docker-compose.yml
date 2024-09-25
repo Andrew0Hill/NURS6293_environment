@@ -23,4 +23,6 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./database_shared:/var/lib/postgresql/data
     restart: unless-stopped
