@@ -4,7 +4,8 @@
 #   2. Default connection profiles for each database.
 
 # Path to the Eclipse/BIRT workspace.
-WORKSPACE_PATH="/config/Desktop/workspace"
+WORKSPACE_PATH="/config/Desktop"
+WORKSPACE_TAR="workspace.tar.gz"
 # Path to where Eclipse stores settings (used for setting default workspace path.)
 ECLIPSE_SETTINGS_PATH="/config/.eclipse/org.eclipse.platform_4.32.0_961481574_linux_gtk_aarch64/configuration/.settings"
 
@@ -20,10 +21,15 @@ then
     cp /programs/config_files/org.eclipse.ui.ide.prefs "$ECLIPSE_PREFS_DEST_PATH"
 fi
 
-# If connection profile store doesn't exist, copy it in.
-CONNECTION_PROFILES_DEST_PATH="$WORKSPACE_PATH/nurs6293_connection_profiles.cps"
-if [[ ! -f "$CONNECTION_PROFILES_DEST_PATH" ]]
+# If workspace directory doesn't exist, copy it in.
+if [[ ! -d "$WORKSPACE_PATH/workspace" ]]
 then
-    echo "Copying default connection profiles..."
-    cp /programs/config_files/nurs6293_connection_profiles.cps "$WORKSPACE_PATH/"
+    echo "Creating workspace directory"
+    cp "/programs/config_files/$WORKSPACE_TAR" "$WORKSPACE_PATH/$WORKSPACE_TAR" && cd "$WORKSPACE_PATH" && tar -xzf "$WORKSPACE_TAR" && rm "$WORKSPACE_TAR"
 fi
+# CONNECTION_PROFILES_DEST_PATH="$WORKSPACE_PATH/nurs6293_connection_profiles.cps"
+# if [[ ! -f "$CONNECTION_PROFILES_DEST_PATH" ]]
+# then
+#     echo "Copying default connection profiles..."
+#     cp /programs/config_files/nurs6293_connection_profiles.cps "$WORKSPACE_PATH/"
+# fi

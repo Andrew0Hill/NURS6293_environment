@@ -53,14 +53,12 @@ echo "Downloaded DBeaver binaries..."
 PGMODELER_PATH="$OUTPUT_DIR/pgmodeler"
 if [[ ! -d $PGMODELER_PATH ]]
 then    
-    git clone https://github.com/pgmodeler/pgmodeler.git $PGMODELER_PATH
+    git clone -b v1.1.4 --depth 1 https://github.com/pgmodeler/pgmodeler.git $PGMODELER_PATH
 
     echo "Cloned pgModeler repository..."
 else
     echo "Skipped cloning '$PGMODELER_PATH', directory already exists..."
 fi
-# Make sure we've checked out the correct version.
-cd "${OUTPUT_DIR}/pgmodeler" && git checkout v1.1.4
 
 # Done.
 echo "All steps complete."

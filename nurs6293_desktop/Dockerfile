@@ -61,13 +61,13 @@ FROM build-${TARGETARCH} AS build-common
 # Copy the JDBC Driver into the BIRT installation.
 RUN mkdir -p "drivers/"
 ARG JDBC_POSTGRES_JAR="postgresql-42.7.4.jar"
-ADD "artifacts/${JDBC_POSTGRES_JAR}" "drivers/${JDBC_POSTGRES_JAR}"
+COPY "artifacts/${JDBC_POSTGRES_JAR}" "drivers/${JDBC_POSTGRES_JAR}"
 # What a convenient location!
 RUN cp "drivers/${JDBC_POSTGRES_JAR}" "/programs/birt/plugins/org.eclipse.birt.report.data.oda.jdbc_4.16.0.v202406141054/drivers/${JDBC_POSTGRES_JAR}"
 
 # Install pgModeler from source. Since we are not using a binary, we don't need separate commands for ARM64 vs AMD64.
-ADD artifacts/pgmodeler ./pgmodeler
-ADD build_pgmodeler.sh ./pgmodeler/build_pgmodeler.sh
+COPY artifacts/pgmodeler ./pgmodeler
+COPY build_pgmodeler.sh ./pgmodeler/build_pgmodeler.sh
 RUN cd ./pgmodeler && \
     chmod +x ./build_pgmodeler.sh && \
     ./build_pgmodeler.sh && \
@@ -75,20 +75,24 @@ RUN cd ./pgmodeler && \
 
 # Configure desktop entries for each program.
 # These entries allow the applications to show up in the app menu.
-ADD config/birt.desktop /usr/local/share/applications/birt.desktop
-ADD config/dbeaver.desktop /usr/local/share/applications/dbeaver.desktop
-ADD config/pgmodeler.desktop /usr/local/share/applications/pgmodeler.desktop
+COPY config/birt.desktop /usr/local/share/applications/birt.desktop
+COPY config/dbeaver.desktop /usr/local/share/applications/dbeaver.desktop
+COPY config/pgmodeler.desktop /usr/local/share/applications/pgmodeler.desktop
 
 # Copy the BIRT config files
 RUN mkdir -p "config_files/"
 
 # Eclipse config file (for default workspace)
 ARG ECLIPSE_PREFS="org.eclipse.ui.ide.prefs"
-ADD "config/${ECLIPSE_PREFS}" "config_files/${ECLIPSE_PREFS}"
+COPY "config/${ECLIPSE_PREFS}" "config_files/${ECLIPSE_PREFS}"
 
 # BIRT connection profiles
-ARG BIRT_CONNECTION_PROFILES="nurs6293_connection_profiles.cps"
-ADD "config/${BIRT_CONNECTION_PROFILES}" "config_files/${BIRT_CONNECTION_PROFILES}"
+# ARG BIRT_CONNECTION_PROFILES="nurs6293_connection_profiles.cps"
+# ADD "config/${BIRT_CONNECTION_PROFILES}" "config_files/${BIRT_CONNECTION_PROFILES}"
+
+# BIRT workspace
+ARG BIRT_WORKSPACE_TAR="workspace.tar.gz"
+COPY "config/${BIRT_WORKSPACE_TAR}" "config_files/${BIRT_WORKSPACE_TAR}" 
 
 # Change to script directory.
 WORKDIR /scripts
@@ -98,10 +102,10 @@ WORKDIR /scripts
 RUN mkdir -p /custom-cont-init.d
 
 # Add custom launcher scripts and add to startup scripts in /custom-cont-init.d.
-ADD config/setup_desktop.sh ./setup_desktop.sh
+COPY config/setup_desktop.sh ./setup_desktop.sh
 RUN chmod +x setup_desktop.sh && ln -s /scripts/setup_desktop.sh /custom-cont-init.d/setup_desktop.sh
 
-ADD config/setup_birt.sh ./setup_birt.sh
+COPY config/setup_birt.sh ./setup_birt.sh
 RUN chmod +x setup_birt.sh && ln -s /scripts/setup_birt.sh /custom-cont-init.d/setup_birt.sh
 
 # Move workdir back to root.
