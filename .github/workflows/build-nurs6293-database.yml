@@ -24,6 +24,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64, linux/arm64
-          context: nurs6293_database
+          context: '{{defaultContext}}:nurs6293_database'
           push: true
           tags: andrew2hill/nurs6293_database:${{ github.ref_name }}
