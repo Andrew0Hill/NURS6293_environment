@@ -11,11 +11,7 @@ INSTALL_PREFIX="/usr/local"
 QT_ROOT="/usr/lib/qt6"
 
 # Configure with Qmake
-"$QT_ROOT/bin/qmake" -r "CONFIG+=release" \
-                        "PREFIX=$INSTALL_PREFIX" \
-                        "BINDIR=$INSTALL_PREFIX" \
-                        "PRIVATEBINDIR=$INSTALL_PREFIX" \
-                        "PRIVATELIBDIR=$INSTALL_PREFIX/lib" \
+"$QT_ROOT/bin/qmake" -r CONFIG+=release \
                         pgmodeler.pro
 
 # Make and install 
