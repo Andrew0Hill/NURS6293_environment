@@ -82,17 +82,16 @@ COPY config/pgmodeler.desktop /usr/local/share/applications/pgmodeler.desktop
 # Copy the BIRT config files
 RUN mkdir -p "config_files/"
 
-# Eclipse config file (for default workspace)
-ARG ECLIPSE_PREFS="org.eclipse.ui.ide.prefs"
+# Eclipse config file (for BIRT default workspace)
+ARG ECLIPSE_PREFS="birt/org.eclipse.ui.ide.prefs"
 COPY "config/${ECLIPSE_PREFS}" "config_files/${ECLIPSE_PREFS}"
 
-# BIRT connection profiles
-# ARG BIRT_CONNECTION_PROFILES="nurs6293_connection_profiles.cps"
-# ADD "config/${BIRT_CONNECTION_PROFILES}" "config_files/${BIRT_CONNECTION_PROFILES}"
-
 # BIRT workspace
-ARG BIRT_WORKSPACE_TAR="workspace.tar.gz"
+ARG BIRT_WORKSPACE_TAR="birt/workspace.tar.gz"
 COPY "config/${BIRT_WORKSPACE_TAR}" "config_files/${BIRT_WORKSPACE_TAR}" 
+
+# pgModeler config files can be copied in all together.
+ADD "config/pgmodeler" "config_files/pgmodeler"
 
 # Change to script directory.
 WORKDIR /scripts
@@ -107,6 +106,9 @@ RUN chmod +x setup_desktop.sh && ln -s /scripts/setup_desktop.sh /custom-cont-in
 
 COPY config/setup_birt.sh ./setup_birt.sh
 RUN chmod +x setup_birt.sh && ln -s /scripts/setup_birt.sh /custom-cont-init.d/setup_birt.sh
+
+COPY config/setup_pgmodeler.sh ./setup_pgmodeler.sh
+RUN chmod +x setup_pgmodeler.sh && ln -s /scripts/setup_pgmodeler.sh /custom-cont-init.d/setup_pgmodeler.sh
 
 # Move workdir back to root.
 WORKDIR /

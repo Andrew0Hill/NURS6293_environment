@@ -18,14 +18,14 @@ ECLIPSE_PREFS_DEST_PATH="$ECLIPSE_SETTINGS_PATH/org.eclipse.ui.ide.prefs"
 if [[ ! -f "$ECLIPSE_PREFS_DEST_PATH" ]]
 then
     echo "Copying Eclipse configuration file..."
-    cp /programs/config_files/org.eclipse.ui.ide.prefs "$ECLIPSE_PREFS_DEST_PATH"
+    cp /programs/config_files/birt/org.eclipse.ui.ide.prefs "$ECLIPSE_PREFS_DEST_PATH"
 fi
 
 # If workspace directory doesn't exist, copy it in.
 if [[ ! -d "$WORKSPACE_PATH/workspace" ]]
 then
     echo "Creating workspace directory"
-    cp "/programs/config_files/$WORKSPACE_TAR" "$WORKSPACE_PATH/$WORKSPACE_TAR" && cd "$WORKSPACE_PATH" && tar -xzf "$WORKSPACE_TAR" && rm "$WORKSPACE_TAR"
+    cp "/programs/config_files/birt/$WORKSPACE_TAR" "$WORKSPACE_PATH/$WORKSPACE_TAR" && cd "$WORKSPACE_PATH" && tar -xzf "$WORKSPACE_TAR" && rm "$WORKSPACE_TAR"
 fi
 # CONNECTION_PROFILES_DEST_PATH="$WORKSPACE_PATH/nurs6293_connection_profiles.cps"
 # if [[ ! -f "$CONNECTION_PROFILES_DEST_PATH" ]]
