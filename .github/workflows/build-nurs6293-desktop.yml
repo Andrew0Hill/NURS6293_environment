@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -23,9 +23,6 @@ jobs:
 
       - name: Pull repository
         uses: actions/checkout@v4
-
-      - name: Update CURL
-        run: sudo apt update && sudo apt install -y curl
         
       - name: Pull artifacts
         run: cd nurs6293_desktop && ./pull_artifacts.sh

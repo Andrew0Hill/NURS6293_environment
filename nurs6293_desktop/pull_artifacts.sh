@@ -14,10 +14,10 @@ pull_url() {
         echo "Downloading '$OUTPUT_PATH'..."
         if [[ $CA_CERT_PATH == "" ]]
         then
-            curl -L -o "$OUTPUT_PATH" "$URL"
+            curl -vvv -L -o "$OUTPUT_PATH" "$URL"
         else
             echo "Using CA certificate '$CA_CERT_PATH'..."
-            curl --cacert $CA_CERT_PATH -L -o "$OUTPUT_PATH" "$URL"
+            curl -vvv --cacert $CA_CERT_PATH -L -o "$OUTPUT_PATH" "$URL"
         fi
     else
         echo "Skipping '$OUTPUT_PATH', file already exists..."
@@ -49,10 +49,13 @@ DBEAVER_ARM64_BINARY="dbeaver-ce-latest-linux.gtk.aarch64-nojdk.tar.gz"
 DBEAVER_AMD64_BINARY="dbeaver-ce-latest-linux.gtk.x86_64-nojdk.tar.gz"
 
 # GitHub Actions needs us to get the certificate first.
-curl -w %{certs} "$DBEAVER_BASE_URL" > dbeaver_cert.pem
+#curl -w %{certs} "$DBEAVER_BASE_URL" > dbeaver_cert.pem
 
-pull_url "$DBEAVER_BASE_URL/$DBEAVER_ARM64_BINARY" "$OUTPUT_DIR/$DBEAVER_ARM64_BINARY" dbeaver_cert.pem
-pull_url "$DBEAVER_BASE_URL/$DBEAVER_AMD64_BINARY" "$OUTPUT_DIR/$DBEAVER_AMD64_BINARY" dbeaver_cert.pem
+pull_url "$DBEAVER_BASE_URL/$DBEAVER_ARM64_BINARY" "$OUTPUT_DIR/$DBEAVER_ARM64_BINARY"
+pull_url "$DBEAVER_BASE_URL/$DBEAVER_AMD64_BINARY" "$OUTPUT_DIR/$DBEAVER_AMD64_BINARY"
+
+#pull_url "$DBEAVER_BASE_URL/$DBEAVER_ARM64_BINARY" "$OUTPUT_DIR/$DBEAVER_ARM64_BINARY" dbeaver_cert.pem
+#pull_url "$DBEAVER_BASE_URL/$DBEAVER_AMD64_BINARY" "$OUTPUT_DIR/$DBEAVER_AMD64_BINARY" dbeaver_cert.pem
 
 echo "Downloaded DBeaver binaries..."
 
