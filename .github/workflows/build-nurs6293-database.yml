@@ -1,9 +1,8 @@
 name: build-nurs6293-database
 
 on:
-  push:
-    branches:
-      - 'main'
+  release: 
+    types: [published]
 
 jobs:
   docker-build:
