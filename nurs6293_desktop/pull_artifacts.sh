@@ -1,18 +1,24 @@
 #!/bin/bash
 # This script pulls binaries used to build the NURS 6293 image.
-
+set -e
 # Directory where binaries should be stored.
 OUTPUT_DIR="${1:-artifacts}"
 
 pull_url() {
     local URL="$1"
     local OUTPUT_PATH="$2"
+    local CA_CERT_PATH="$3"
 
     if [[ ! -f $OUTPUT_PATH ]]
     then
         echo "Downloading '$OUTPUT_PATH'..."
-        curl -L -o "$OUTPUT_PATH" "$URL"
-
+        if [[ $CA_CERT_PATH == "" ]]
+        then
+            curl -L -o "$OUTPUT_PATH" "$URL"
+        else
+            echo "Using CA certificate '$CA_CERT_PATH'..."
+            curl --cacert $CA_CERT_PATH -L -o "$OUTPUT_PATH" "$URL"
+        fi
     else
         echo "Skipping '$OUTPUT_PATH', file already exists..."
     fi
@@ -42,8 +48,11 @@ DBEAVER_BASE_URL="https://dbeaver.io/files"
 DBEAVER_ARM64_BINARY="dbeaver-ce-latest-linux.gtk.aarch64-nojdk.tar.gz" 
 DBEAVER_AMD64_BINARY="dbeaver-ce-latest-linux.gtk.x86_64-nojdk.tar.gz"
 
-pull_url "$DBEAVER_BASE_URL/$DBEAVER_ARM64_BINARY" "$OUTPUT_DIR/$DBEAVER_ARM64_BINARY"
-pull_url "$DBEAVER_BASE_URL/$DBEAVER_AMD64_BINARY" "$OUTPUT_DIR/$DBEAVER_AMD64_BINARY"
+# GitHub Actions needs us to get the certificate first.
+curl -w %{certs} "$DBEAVER_BASE_URL" > dbeaver_cert.pem
+
+pull_url "$DBEAVER_BASE_URL/$DBEAVER_ARM64_BINARY" "$OUTPUT_DIR/$DBEAVER_ARM64_BINARY" dbeaver_cert.pem
+pull_url "$DBEAVER_BASE_URL/$DBEAVER_AMD64_BINARY" "$OUTPUT_DIR/$DBEAVER_AMD64_BINARY" dbeaver_cert.pem
 
 echo "Downloaded DBeaver binaries..."
 
