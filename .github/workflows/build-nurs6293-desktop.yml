@@ -23,6 +23,9 @@ jobs:
       - name: Pull repository
         uses: actions/checkout@v4
 
+      - name: Update CURL
+        run: apt update && apt install -y curl
+        
       - name: Pull artifacts
         run: cd nurs6293_desktop && ./pull_artifacts.sh
 
