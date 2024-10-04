@@ -26,6 +26,11 @@ RUN mv eclipse/ birt/
 ARG DBEAVER_ARM64_BINARY="dbeaver-ce-latest-linux.gtk.aarch64-nojdk.tar.gz"
 ADD "artifacts/${DBEAVER_ARM64_BINARY}" .
 
+# Install pgModeler (AMD64)
+ARG PGMODELER_ARM64_BINARY="pgmodeler_arm64.tar.gz"
+ADD "artifacts/${PGMODELER_ARM64_BINARY}" .
+RUN cp -r pgmodeler_arm64/* /usr/local/
+
 # The build-amd64 builds the AMD image.
 FROM linuxserver/webtop:debian-xfce@sha256:6edbb9e46f111375018413fb6a8cd1345e67ab7ebbf1633fe4c03b025bedd57d AS build-amd64
 
@@ -54,6 +59,11 @@ RUN mv eclipse/ birt/
 ARG DBEAVER_AMD64_BINARY="dbeaver-ce-latest-linux.gtk.x86_64-nojdk.tar.gz"
 ADD "artifacts/${DBEAVER_AMD64_BINARY}" .
 
+# Install pgModeler (AMD64)
+ARG PGMODELER_AMD64_BINARY="pgmodeler_amd64.tar.gz"
+ADD "artifacts/${PGMODELER_AMD64_BINARY}" .
+RUN cp -r pgmodeler_amd64/* /usr/local/
+
 # At this stage, all architecture-specific configuration is done. 
 # We can now perform a single set of steps for both architectures to complete the setup.
 FROM build-${TARGETARCH} AS build-common
@@ -64,14 +74,6 @@ ARG JDBC_POSTGRES_JAR="postgresql-42.7.4.jar"
 COPY "artifacts/${JDBC_POSTGRES_JAR}" "drivers/${JDBC_POSTGRES_JAR}"
 # What a convenient location!
 RUN cp "drivers/${JDBC_POSTGRES_JAR}" "/programs/birt/plugins/org.eclipse.birt.report.data.oda.jdbc_4.16.0.v202406141054/drivers/${JDBC_POSTGRES_JAR}"
-
-# Install pgModeler from source. Since we are not using a binary, we don't need separate commands for ARM64 vs AMD64.
-COPY artifacts/pgmodeler ./pgmodeler
-COPY build_pgmodeler.sh ./pgmodeler/build_pgmodeler.sh
-RUN cd ./pgmodeler && \
-    chmod +x ./build_pgmodeler.sh && \
-    ./build_pgmodeler.sh && \
-    rm ./build_pgmodeler.sh
 
 # Configure desktop entries for each program.
 # These entries allow the applications to show up in the app menu.

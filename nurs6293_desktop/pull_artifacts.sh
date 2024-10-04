@@ -60,17 +60,7 @@ pull_url "$DBEAVER_BASE_URL/$DBEAVER_AMD64_BINARY" "$OUTPUT_DIR/$DBEAVER_AMD64_B
 echo "Downloaded DBeaver binaries..."
 
 # pgModeler Download
-
-# Clone the repository.
-PGMODELER_PATH="$OUTPUT_DIR/pgmodeler"
-if [[ ! -d $PGMODELER_PATH ]]
-then    
-    git clone -b v1.1.4 --depth 1 https://github.com/pgmodeler/pgmodeler.git $PGMODELER_PATH
-
-    echo "Cloned pgModeler repository..."
-else
-    echo "Skipped cloning '$PGMODELER_PATH', directory already exists..."
-fi
+# TODO: Add this to the build script.
 
 # Done.
 echo "All steps complete."
