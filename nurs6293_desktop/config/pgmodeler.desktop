@@ -2,6 +2,6 @@
 Type=Application
 Name=pgModeler
 Comment=Data Modeler
-Exec=pgmodeler
-Icon=/programs/pgmodeler/assets/conf/pgmodeler_logo.png
+Exec=/programs/pgmodeler/bin/pgmodeler
+Icon=/programs/pgmodeler/share/pgmodeler/conf/pgmodeler_logo.png
 Terminal=False
