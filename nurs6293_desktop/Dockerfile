@@ -28,8 +28,8 @@ ADD "artifacts/${DBEAVER_ARM64_BINARY}" .
 
 # Install pgModeler (AMD64)
 ARG PGMODELER_ARM64_BINARY="pgmodeler_arm64.tar.gz"
-ADD "artifacts/${PGMODELER_ARM64_BINARY}" .
-RUN cp -r pgmodeler_arm64/* /usr/local/
+ADD "artifacts/${PGMODELER_ARM64_BINARY}" /
+#RUN cd /pgmodeler_src && make install && cd / && rm -rf pgmodeler_src
 
 # The build-amd64 builds the AMD image.
 FROM linuxserver/webtop:debian-xfce@sha256:6edbb9e46f111375018413fb6a8cd1345e67ab7ebbf1633fe4c03b025bedd57d AS build-amd64
@@ -61,8 +61,8 @@ ADD "artifacts/${DBEAVER_AMD64_BINARY}" .
 
 # Install pgModeler (AMD64)
 ARG PGMODELER_AMD64_BINARY="pgmodeler_amd64.tar.gz"
-ADD "artifacts/${PGMODELER_AMD64_BINARY}" .
-RUN cp -r pgmodeler_amd64/* /usr/local/
+ADD "artifacts/${PGMODELER_AMD64_BINARY}" /
+#RUN cd /pgmodeler_src && make install && cd / && rm -rf pgmodeler_src
 
 # At this stage, all architecture-specific configuration is done. 
 # We can now perform a single set of steps for both architectures to complete the setup.
