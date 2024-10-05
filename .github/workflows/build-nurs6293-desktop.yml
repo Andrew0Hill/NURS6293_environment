@@ -1,9 +1,8 @@
 name: build-nurs6293-desktop
 
 on:
-  push:
-    branches:
-      - 'main'
+  release: 
+    types: [published]
 
 jobs:
   docker-build:
