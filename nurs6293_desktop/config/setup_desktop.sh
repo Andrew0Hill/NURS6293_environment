@@ -8,7 +8,6 @@ LAUNCHERS=("birt.desktop" "pgmodeler.desktop")
 
 # First we create the desktop folder if it does not exist.
 mkdir -p "/config/Desktop"
-chown -hR abc:abc "/config/Desktop"
 
 for LAUNCHER in "${LAUNCHERS[@]}"
 do
@@ -18,3 +17,6 @@ do
         cp "$LAUNCHER_ROOT/$LAUNCHER" $LAUNCHER_PATH && chmod +x $LAUNCHER_PATH
     fi
 done
+
+# Change ownership of Desktop and all files to abc user.
+chown -hR abc:abc "/config/Desktop"
