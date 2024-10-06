@@ -17,4 +17,4 @@ COPY ./Scripts/nurs6293_createdb.sql.gz .
 COPY ./Scripts/healthcheck.sh /
 
 # Add a health check, which just checks if the final table to be copied has the correct number of rows.
-HEALTHCHECK --timeout=10s --interval=30s --start-period=60s --start-interval=5s --retries=3 CMD [ "/healthcheck.sh" ]
+HEALTHCHECK --timeout=10s --interval=30s --start-period=600s --start-interval=5s --retries=3 CMD [ "/healthcheck.sh" ]
