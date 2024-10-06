@@ -17,3 +17,6 @@ do
         cp "$LAUNCHER_ROOT/$LAUNCHER" $LAUNCHER_PATH && chmod +x $LAUNCHER_PATH
     fi
 done
+
+# Change ownership of Desktop and all files to abc user.
+chown -hR abc:abc "/config/Desktop"

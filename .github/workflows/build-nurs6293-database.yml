@@ -31,4 +31,6 @@ jobs:
           platforms: linux/amd64, linux/arm64
           context: ./nurs6293_database
           push: true
-          tags: andrew2hill/nurs6293_database:${{ github.ref_name }}
+          tags: |
+            andrew2hill/nurs6293_database:${{ github.ref_name }}
+            andrew2hill/nurs6293_database:latest

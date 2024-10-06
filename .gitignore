@@ -3,3 +3,6 @@ nurs6293_desktop/artifacts
 host_shared/
 database_shared/
 *.bak
+*.rtf
+*.cps
+*.pem

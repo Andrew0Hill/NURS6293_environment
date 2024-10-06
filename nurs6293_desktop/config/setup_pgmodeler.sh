@@ -21,3 +21,6 @@ do
         cp "/programs/config_files/pgmodeler/$CONF_FILE" "$CONF_FILE_PATH"
     fi
 done
+
+# Make abc user the owner of the config directory.
+chown -hR abc:abc $PGMODELER_CONFIG_PATH

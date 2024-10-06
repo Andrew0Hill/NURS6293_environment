@@ -22,12 +22,9 @@ jobs:
 
       - name: Pull repository
         uses: actions/checkout@v4
-        
-      - name: Pull artifacts
-        run: cd nurs6293_desktop && ./pull_artifacts.sh
       
-      - name: Pull pgModeler binaries
-        run: gh release download v1.1 --repo Andrew0Hill/pgmodeler_binaries --pattern '*.tar.gz' --dir ./nurs6293_desktop/artifacts
+      - name: Pull artifact binaries
+        run: gh release download v1.1 --repo Andrew0Hill/nurs6293_binaries --pattern '*.tar.gz' --pattern '*.jar' --dir ./nurs6293_desktop/artifacts
         env:
           GH_TOKEN: ${{ secrets.BINARY_REPO_TOKEN }}
 
@@ -37,4 +34,6 @@ jobs:
           platforms: linux/amd64, linux/arm64
           context: ./nurs6293_desktop
           push: true
-          tags: andrew2hill/nurs6293_desktop:${{ github.ref_name }}
+          tags: |
+            andrew2hill/nurs6293_desktop:${{ github.ref_name }}
+            andrew2hill/nurs6293_desktop:latest

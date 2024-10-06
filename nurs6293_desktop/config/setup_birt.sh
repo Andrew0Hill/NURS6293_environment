@@ -7,7 +7,8 @@
 WORKSPACE_PATH="/config/Desktop"
 WORKSPACE_TAR="workspace.tar.gz"
 # Path to where Eclipse stores settings (used for setting default workspace path.)
-ECLIPSE_SETTINGS_PATH="/config/.eclipse/org.eclipse.platform_4.32.0_961481574_linux_gtk_aarch64/configuration/.settings"
+ECLIPSE_BASE_PATH="/config/.eclipse"
+ECLIPSE_SETTINGS_PATH="$ECLIPSE_BASE_PATH/org.eclipse.platform_4.32.0_961481574_linux_gtk_$(uname -m)/configuration/.settings"
 
 # Make the directories if they don't exist
 mkdir -p "$WORKSPACE_PATH"
@@ -18,6 +19,7 @@ ECLIPSE_PREFS_DEST_PATH="$ECLIPSE_SETTINGS_PATH/org.eclipse.ui.ide.prefs"
 if [[ ! -f "$ECLIPSE_PREFS_DEST_PATH" ]]
 then
     echo "Copying Eclipse configuration file..."
+    # Copy in the preferences file.
     cp /programs/config_files/birt/org.eclipse.ui.ide.prefs "$ECLIPSE_PREFS_DEST_PATH"
 fi
 
@@ -33,3 +35,7 @@ fi
 #     echo "Copying default connection profiles..."
 #     cp /programs/config_files/nurs6293_connection_profiles.cps "$WORKSPACE_PATH/"
 # fi
+
+# Modify directory ownership for both directories.
+chown -hR abc:abc $WORKSPACE_PATH
+chown -hR abc:abc $ECLIPSE_BASE_PATH
