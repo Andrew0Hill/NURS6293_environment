@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Pull artifact binaries
-        run: gh release download v1.1 --repo Andrew0Hill/pgmodeler_binaries --pattern '*.tar.gz' --pattern '*.jar' --dir ./nurs6293_desktop/artifacts
+        run: gh release download v1.1 --repo Andrew0Hill/nurs6293_binaries --pattern '*.tar.gz' --pattern '*.jar' --dir ./nurs6293_desktop/artifacts
         env:
           GH_TOKEN: ${{ secrets.BINARY_REPO_TOKEN }}
 
