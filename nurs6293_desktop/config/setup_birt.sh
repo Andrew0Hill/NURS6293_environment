@@ -8,7 +8,7 @@ WORKSPACE_PATH="/config/Desktop"
 WORKSPACE_TAR="workspace.tar.gz"
 # Path to where Eclipse stores settings (used for setting default workspace path.)
 ECLIPSE_BASE_PATH="/config/.eclipse"
-ECLIPSE_SETTINGS_PATH="$ECLIPSE_BASE_PATH/org.eclipse.platform_4.32.0_961481574_linux_gtk_aarch64/configuration/.settings"
+ECLIPSE_SETTINGS_PATH="$ECLIPSE_BASE_PATH/org.eclipse.platform_4.32.0_961481574_linux_gtk_$(uname -m)/configuration/.settings"
 
 # Make the directories if they don't exist
 mkdir -p "$WORKSPACE_PATH"
