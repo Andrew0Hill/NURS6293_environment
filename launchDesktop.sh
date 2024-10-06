@@ -6,7 +6,7 @@ WAIT_INTERVAL=5
 # Name of the database container.
 DB_CONTAINER_NAME="nurs6293_database"
 
-docker compose up -d 
+docker compose pull && docker compose up -d 
 
 while [ $(docker inspect --format "{{json .State.Health.Status }}" $DB_CONTAINER_NAME) != '"healthy"' ]
 do
