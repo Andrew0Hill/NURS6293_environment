@@ -25,4 +25,5 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - ./database_shared:/var/lib/postgresql/data
+    shm_size: "1gb"
     restart: unless-stopped
