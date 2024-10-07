@@ -23,4 +23,16 @@ do
 done
 
 printf "\nDatabase intiialization complete, launching browser...\n"
-open http://localhost:3000
+
+case $(uname -s) in
+    # Use open on MacOS
+    Darwin)
+        OPEN_CMD="open"
+        ;;
+    # For other Linux platforms, try xdg-open
+    *)
+        OPEN_CMD="xdg-open"
+        ;;
+esac
+
+$OPEN_CMD "http://localhost:3000"
