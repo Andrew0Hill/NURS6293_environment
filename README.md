@@ -26,22 +26,31 @@ To build either image, `cd` into either `nurs6293_database` or `nurs6293_desktop
 
 ## Single-architecture build
 
-To build for a single architecture, you could use a command like:
+To build for a single architecture, you can use the `./build_image.sh` script available in each directory. 
+
+When running the script, use the `--dev` option to build a single image which is compatible with your local machine's architecture, like:
+
 ```
-docker build -t nurs6293_desktop .
+cd nurs6293_desktop
+sudo ./build_image.sh --dev
 ```
-from the `nurs6293_desktop/` subdirectory to build the image locally. 
+
 
 > [!WARNING]
-> Depending on the image, you may need to pull dependent binaries/artifacts which the Dockerfile will expect to find. 
+> To build the `nurs6293_desktop` image, you may need to pull dependent binaries/artifacts which the Dockerfile will expect to find. 
 > You can reference the `build_image.sh` scripts in each directory for the steps that should be taken to pull these dependencies.
 
 ## Multi-architecture build
 
-Building multi-arch images on a single machine will require some extra configuration, and the use of `docker buildx`. You can reference the `build_image.sh` script in each directory for guidance on performing a multi-architecture build.
+To build images for multiple architectures, use the `./build_image.sh` script with the `--prod` option, like:
+
+```
+cd nurs6293_desktop
+sudo ./build_image.sh --prod
+```
 
 > [!WARNING]
-> Running the `build_image.sh` scripts locally will likely fail at the last step, since you do not have push permission to the appropriate DockerHub repository. Using the `--load` option will also not work for multi-architecture builds. 
+> Running `./build_image.sh --prod` will attempt to push to DockerHub, and will likely fail unless you have permissions for the DockerHub repositories.
 > If you are building an image for local use or testing, you should perform a [single-architecture build](#single-architecture-build) for your current architecture.
 
 
