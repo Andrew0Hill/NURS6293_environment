@@ -4,14 +4,15 @@ This repository is a Docker-based desktop environment used for NURS 6293.
 # Running the environment
 
 ## Running via launch script
-The easiest way to launch the environment is to locate the `launchDesktop.*` scripts in the root of this repository, and run the script appropriate for your operating system (`.sh` for Unix/MacOS and `.bat` for Windows)
+The easiest way to launch the environment is to locate the `launchDesktop.*` scripts in the root of this repository, and run the script appropriate for your operating system (`.sh` for Unix/MacOS and `.ps1` for Windows)
 
 These scripts are a wrapper around `docker compose` which will start the containers and open a browser window to `localhost:3000` after launch.
 
 ## Running via `docker compose`
-1. Ensure you have Docker Desktop installed on your computer then run `docker compose up` from the root directory of this repository. 
+1. Ensure you have Docker Desktop installed on your computer.
+2. Run `docker compose pull && docker compose up` from the root directory of this repository. 
 2. Navigate to `localhost:3000` in your web browser.
-3. To connect to the Postgres container, use hostname `postgres:5432`.
+3. To connect to the Postgres container, use hostname `postgres:5432` from within the desktop container. 
 
 
 # Building the environment
