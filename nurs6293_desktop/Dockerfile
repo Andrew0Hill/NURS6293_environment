@@ -16,7 +16,8 @@ RUN apt update && apt install -y openjdk-17-jre \
                                  build-essential \
                                  libxml2-dev \
                                  libxext-dev \
-                                 libreoffice-writer
+                                 libreoffice-writer \
+                                 mate-utils
 
 # Install BIRT (ARM64)
 ARG BIRT_ARM64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.aarch64.tar.gz"
@@ -50,7 +51,8 @@ RUN apt update && apt install -y openjdk-17-jre \
                                  build-essential \
                                  libxml2-dev \
                                  libxext-dev \
-                                 libreoffice-writer
+                                 libreoffice-writer \
+                                 mate-utils
 
 # Install BIRT (AMD64)
 ARG BIRT_AMD64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.x86_64.tar.gz"

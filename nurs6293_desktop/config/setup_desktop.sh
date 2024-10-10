@@ -4,7 +4,7 @@
 # All three *.desktop files must already exist within the docker container (at LAUNCHER_ROOT) for this script to work.
 # Because we have the Desktop mounted as a shared volume, we need to run this script after launch to create the launchers.
 LAUNCHER_ROOT="/usr/local/share/applications"
-LAUNCHERS=("birt.desktop" "pgmodeler.desktop" "libreoffice-writer.desktop" "mate-terminal.desktop" "chromium.desktop")
+LAUNCHERS=("birt.desktop" "pgmodeler.desktop" "libreoffice-writer.desktop" "mate-terminal.desktop" "mate-screenshot.desktop" "chromium.desktop")
 
 # First we create the desktop folder if it does not exist.
 mkdir -p "/config/Desktop"
