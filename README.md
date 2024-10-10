@@ -3,10 +3,20 @@ This repository is a Docker-based desktop environment used for NURS 6293.
 
 # Running the environment
 
-## Running via launch script
-The easiest way to launch the environment is to locate the `launchDesktop.*` scripts in the root of this repository, and run the script appropriate for your operating system (`.sh` for Unix/MacOS and `.ps1` for Windows)
+## Running via launch scripts
+The easiest way to launch the environment is to locate the `launchDesktop.*` scripts in the root of this repository, and run the script appropriate for your operating system.
 
 These scripts are a wrapper around `docker compose` which will start the containers and open a browser window to `localhost:3000` after launch.
+
+| OS         | Script                        |
+|------------|-------------------------------|
+| Windows    | `./launchDesktop.lnk`         |
+| MacOS      | `./launchDesktop.command`[^1] | 
+| Unix/Linux | `./launchDesktop.sh`          |
+
+[^1]: MacOS can also utilize the `./launchDesktop.sh` script, but `./launchDesktop.command` provides the ability to launch by double-clicking. 
+
+
 
 ## Running via `docker compose`
 1. Ensure you have Docker Desktop installed on your computer.
