@@ -12,7 +12,8 @@ services:
       - TZ=America/Denver
       - TITLE=NURS6293 Desktop Environment #optional
     volumes:
-      - ./host_shared:/config
+      - desktop_data:/config
+      - ./host_shared:/config/Desktop/host_shared
     ports:
       - 3000:3000
     shm_size: "1gb" #optional
@@ -24,6 +25,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./database_shared:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     shm_size: "1gb"
     restart: unless-stopped
+volumes:
+  desktop_data:
+  db_data:
