@@ -4,21 +4,6 @@ FROM linuxserver/webtop:debian-mate@sha256:c074f90a3d2b09aabfb06a8d766c755a777dc
 # Move to the /program directory 
 WORKDIR /programs
 
-# Make this directory, which is required for openjdk-17-jre to install correctly.
-RUN mkdir -p /usr/share/man/man1
-
-# Install all dependencies needed for installed programs.
-RUN apt update && apt install -y openjdk-17-jre \
-                                 git \
-                                 qt6-base-dev \
-                                 libpqxx-dev \
-                                 libqt6svg6-dev \
-                                 build-essential \
-                                 libxml2-dev \
-                                 libxext-dev \
-                                 libreoffice-writer \
-                                 mate-utils
-
 # Install BIRT (ARM64)
 ARG BIRT_ARM64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.aarch64.tar.gz"
 ADD "artifacts/${BIRT_ARM64_BINARY}" .
@@ -39,21 +24,6 @@ FROM linuxserver/webtop:debian-mate@sha256:2aa4340147569caec3a3f797c8dd42d6a3333
 # Move to the /program directory 
 WORKDIR /programs
 
-# Make this directory, which is required for openjdk-17-jre to install correctly.
-RUN mkdir -p /usr/share/man/man1
-
-# Install all dependencies needed for installed programs.
-RUN apt update && apt install -y openjdk-17-jre \
-                                 git \
-                                 qt6-base-dev \
-                                 libpqxx-dev \
-                                 libqt6svg6-dev \
-                                 build-essential \
-                                 libxml2-dev \
-                                 libxext-dev \
-                                 libreoffice-writer \
-                                 mate-utils
-
 # Install BIRT (AMD64)
 ARG BIRT_AMD64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.x86_64.tar.gz"
 ADD "artifacts/${BIRT_AMD64_BINARY}" .
@@ -72,6 +42,20 @@ ADD "artifacts/${PGMODELER_AMD64_BINARY}" /
 # We can now perform a single set of steps for both architectures to complete the setup.
 FROM build-${TARGETARCH} AS build-common
 
+# Make this directory, which is required for openjdk-17-jre to install correctly.
+RUN mkdir -p /usr/share/man/man1
+
+# Install all dependencies needed for installed programs.
+RUN apt update && apt install -y openjdk-17-jre \
+                                 dconf-cli \
+                                 qt6-base-dev \
+                                 libpqxx-dev \
+                                 libqt6svg6-dev \
+                                 libxml2-dev \
+                                 libxext-dev \
+                                 libreoffice-writer \
+                                 mate-utils
+
 # Copy the JDBC Driver into the BIRT installation.
 RUN mkdir -p "drivers/"
 ARG JDBC_POSTGRES_JAR="postgresql-42.7.4.jar"
@@ -87,7 +71,7 @@ RUN cp "drivers/${JDBC_POSTGRES_JAR}" "/programs/birt/plugins/org.eclipse.birt.r
 COPY config/desktop/*.desktop /usr/local/share/applications/
 
 # Copy the BIRT config files
-RUN mkdir -p "config_files/"
+RUN mkdir -p "config_files/desktop"
 
 # Eclipse config file (for BIRT default workspace)
 ARG ECLIPSE_PREFS="birt/org.eclipse.ui.ide.prefs"

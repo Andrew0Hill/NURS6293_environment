@@ -9,6 +9,7 @@ LAUNCHERS=("birt.desktop" "pgmodeler.desktop" "libreoffice-writer.desktop" "mate
 # First we create the desktop folder if it does not exist.
 mkdir -p "/config/Desktop"
 
+# Copy the desktop entries.
 for LAUNCHER in "${LAUNCHERS[@]}"
 do
     LAUNCHER_PATH="/config/Desktop/$LAUNCHER"
@@ -17,6 +18,11 @@ do
         cp "$LAUNCHER_ROOT/$LAUNCHER" $LAUNCHER_PATH && chmod +x $LAUNCHER_PATH
     fi
 done
+
+# Copy the desktop entry which sets the background into the autostart folder.
+mkdir -p "/config/.config/autostart" && \
+cp "$LAUNCHER_ROOT/set_background.desktop" "/config/.config/autostart/" && \
+chown -hR abc:abc /config/.config/autostart
 
 # Change ownership of Desktop and all files to abc user.
 chown -hR abc:abc "/config/Desktop"

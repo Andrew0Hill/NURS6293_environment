@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Set Desktop Background
+Exec=bash -c "gsettings set org.mate.background primary-color 'rgb(94,92,100)' && gsettings set org.mate.background color-shading-type 'solid'"
+Terminal=false
+
