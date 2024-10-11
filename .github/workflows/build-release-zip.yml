@@ -1,0 +1,24 @@
+name: build-release-zip
+
+on:
+  release: 
+    types: [published]
+
+jobs:
+  make-zip:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Pull repository
+        uses: actions/checkout@v4
+      
+      - name: Compress script files
+        run: |
+          mkdir -p NURS6293
+          cp ./launchDesktop.sh ./launchDesktop.command ./launchDesktop.lnk ./launchScript.ps1 ./docker-compose.yml NURS6293/
+          zip -r NURS6293.zip NURS6293/
+
+      - name: Upload artifact
+        run: gh release upload ${{ github.ref_name }} NURS6293.zip --repo ${{ github.repository }} --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
