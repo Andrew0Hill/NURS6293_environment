@@ -1,9 +1,8 @@
 name: build-release-zip
 
 on:
-  push:
-    branches:
-      - main
+  release: 
+    types: [published]
 
 jobs:
   make-zip:
@@ -21,7 +20,7 @@ jobs:
           zip -r NURS6293.zip NURS6293/
 
       - name: Upload artifact
-        run: gh release upload v0.1.6 NURS6293.zip --repo ${{ github.repository }} --clobber
+        run: gh release upload ${{ github.ref_name }} NURS6293.zip --repo ${{ github.repository }} --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
