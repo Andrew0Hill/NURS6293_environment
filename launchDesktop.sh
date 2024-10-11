@@ -4,6 +4,17 @@
 # Halt on error
 set -e
 
+for arg in "$@"
+do
+    case $arg in
+        --skip-pull)
+            SKIP_PULL=1
+            ;;
+        *)
+            ;;
+    esac
+done
+
 # Interval between health checks
 WAIT_INTERVAL=2
 
@@ -16,19 +27,25 @@ CUR_DIR_PATH=$(realpath "$CUR_DIR")
 
 # Move into the correct directory if we are not there already.
 PWD=$(pwd)
- echo "Current working directory is '$PWD'."
+ printf "Current working directory is '$PWD'.\n"
 if [[ "$PWD" != "$CUR_DIR_PATH" ]]
 then
-   echo "Moving to '$CUR_DIR_PATH' to execute script."
+   printf "Moving to '$CUR_DIR_PATH' to execute script.\n"
     cd "$CUR_DIR_PATH"
 fi
 
 # Pull most recent docker image and bring up docker compose.
-docker compose pull && docker compose up -d 
+if [[ -z $SKIP_PULL ]]
+then 
+    docker compose pull && docker compose up -d
+else
+    printf "Skipping 'docker pull'... You should only use this option if you are debugging!\n"
+    docker compose up -d
+fi
 
 # Print status messages.
-echo "Please keep this window open. Once database initialization is complete, a browser window will launch."
-echo "This operation may take a few minutes if you are launching the environment for the first time."
+printf "\nPlease keep this window open. Once database initialization is complete, a browser window will launch."
+printf "\nThis operation may take a few minutes if you are launching the environment for the first time.\n\n"
 
 # Characters to print to indicate we are waiting.
 WAIT_CHARS=("|" "/" "-" "\\")
