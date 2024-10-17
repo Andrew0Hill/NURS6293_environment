@@ -19,10 +19,21 @@ do
     fi
 done
 
+# Make the autostart folder if it doesn't exist
+mkdir -p "/config/.config/autostart" 
+
 # Copy the desktop entry which sets the background into the autostart folder.
-mkdir -p "/config/.config/autostart" && \
-cp "$LAUNCHER_ROOT/set_background.desktop" "/config/.config/autostart/" && \
-chown -hR abc:abc /config/.config/autostart
+if [[ ! -f "/config/.config/autostart/set_background.desktop" ]]
+then
+    cp "$LAUNCHER_ROOT/set_background.desktop" "/config/.config/autostart/" && \
+    chown -hR abc:abc /config/.config/autostart
+fi
+
+# if [[ ! -f "/config/.config/mimeapps.list" ]]
+# then
+#     cp "$LAUNCHER_ROOT/mimeapps.list" "/config/.config/" && \
+#     chown abc:abc /config/.config/mimeapps.list
+# fi
 
 # Change ownership of Desktop and all files to abc user.
 chown -hR abc:abc "/config/Desktop"

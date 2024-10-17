@@ -69,6 +69,7 @@ RUN cp "drivers/${JDBC_POSTGRES_JAR}" "/programs/birt/plugins/org.eclipse.birt.r
 # COPY config/dbeaver.desktop /usr/local/share/applications/dbeaver.desktop
 # COPY config/pgmodeler.desktop /usr/local/share/applications/pgmodeler.desktop
 COPY config/desktop/*.desktop /usr/local/share/applications/
+COPY config/desktop/mimeapps.list /usr/local/share/applications/
 
 # Copy the BIRT config files
 RUN mkdir -p "config_files/desktop"
