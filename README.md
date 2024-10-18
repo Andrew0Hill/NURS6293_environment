@@ -1,3 +1,9 @@
+[![build-nurs6293-desktop](https://github.com/Andrew0Hill/NURS6293_environment/actions/workflows/build-nurs6293-desktop.yml/badge.svg)](https://github.com/Andrew0Hill/NURS6293_environment/actions/workflows/build-nurs6293-desktop.yml)
+
+[![build-nurs6293-database](https://github.com/Andrew0Hill/NURS6293_environment/actions/workflows/build-nurs6293-database.yml/badge.svg)](https://github.com/Andrew0Hill/NURS6293_environment/actions/workflows/build-nurs6293-database.yml)
+
+[![build-release-zip](https://github.com/Andrew0Hill/NURS6293_environment/actions/workflows/build-release-zip.yml/badge.svg)](https://github.com/Andrew0Hill/NURS6293_environment/actions/workflows/build-release-zip.yml)
+
 # NURS 6293 Docker Environment
 This repository is a Docker-based desktop environment used for NURS 6293.
 
