@@ -38,7 +38,8 @@ fi
 # Pull most recent docker image and bring up docker compose.
 if [[ -z $SKIP_PULL ]]
 then 
-    docker compose pull && docker compose up -d
+    docker compose pull
+    docker compose up -d
 else
     printf "Skipping 'docker pull'... You should only use this option if you are debugging!\n"
     docker compose up -d

@@ -5,7 +5,7 @@ set -e
 
 # Get the path to the script directory.
 CUR_DIR=$(dirname -- "$0")
-CUR_DIR_PATH=$(realpath "$CUR_DIR")
+CUR_DIR_PATH=$(readlink -f "$CUR_DIR")
 
 # Move into the correct directory if we are not there already.
 PWD=$(pwd)
