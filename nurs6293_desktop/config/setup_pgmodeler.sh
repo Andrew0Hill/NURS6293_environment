@@ -5,7 +5,7 @@
 
 PGMODELER_CONFIG_PATH="/config/.config/pgmodeler-1.0"
 
-PGMODELER_CONFIG_FILES=("appearance.conf" "connections.conf")
+PGMODELER_CONFIG_FILES=("appearance.conf" "connections.conf" "diff-presets.conf" "general.conf" "pattern-highlight.conf" "relationships.conf" "sch-highlight.conf" "snippets.conf" "sql-highlight.conf" "sql-history.conf" "xml-highlight.conf")
 
 # Make the directories if they don't exist
 mkdir -p "$PGMODELER_CONFIG_PATH"
