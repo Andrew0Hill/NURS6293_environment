@@ -85,6 +85,9 @@ COPY "config/${BIRT_WORKSPACE_TAR}" "config_files/${BIRT_WORKSPACE_TAR}"
 # pgModeler config files can be copied in all together.
 ADD "config/pgmodeler" "config_files/pgmodeler"
 
+# LibreOffice config files can be copied in all together.
+ADD "config/libreoffice" "config_files/libreoffice"
+
 # Change to script directory.
 WORKDIR /scripts
 
@@ -101,6 +104,9 @@ RUN chmod +x setup_birt.sh && ln -s /scripts/setup_birt.sh /custom-cont-init.d/s
 
 COPY config/setup_pgmodeler.sh ./setup_pgmodeler.sh
 RUN chmod +x setup_pgmodeler.sh && ln -s /scripts/setup_pgmodeler.sh /custom-cont-init.d/setup_pgmodeler.sh
+
+COPY config/setup_libreoffice.sh ./setup_libreoffice.sh
+RUN chmod +x setup_libreoffice.sh && ln -s /scripts/setup_libreoffice.sh /custom-cont-init.d/setup_libreoffice.sh
 
 # Move workdir back to root.
 WORKDIR /
