@@ -83,7 +83,10 @@ ARG BIRT_WORKSPACE_TAR="birt/workspace.tar.gz"
 COPY "config/${BIRT_WORKSPACE_TAR}" "config_files/${BIRT_WORKSPACE_TAR}" 
 
 # pgModeler config files can be copied in all together.
-ADD "config/pgmodeler" "config_files/pgmodeler"
+ADD "config/pgmodeler/config_files" "config_files/pgmodeler"
+
+# pgModeler data models can be copied in all together.
+ADD "config/pgmodeler/data_models" "data_models"
 
 # LibreOffice config files can be copied in all together.
 ADD "config/libreoffice" "config_files/libreoffice"

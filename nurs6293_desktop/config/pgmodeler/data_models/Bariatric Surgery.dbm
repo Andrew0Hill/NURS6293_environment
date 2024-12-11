@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.1.4" use-changelog="false" max-obj-count="9"
+	 last-position="0,0" last-zoom="0.7" scene-rect="0,0,1570.8,1077.72"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<table name="Patient" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="120" y="40"/>
+	<column name="PAT_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="PAT_FNAME" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="PAT_LNAME" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="PAT_GENDER" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="PAT_ADDRESS" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="PAT_CITY" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="PAT_STATE" not-null="true">
+		<type name="varchar" length="2"/>
+	</column>
+	<column name="PAT_ZIP" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="PAT_OCCUPATION">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="PAT_DOB" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="PAT_DOD">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="Patient_pk" type="pk-constr" table="public.&quot;Patient&quot;">
+		<columns names="PAT_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Encounter" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="560" y="420"/>
+	<column name="ENCOUNTER_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="ENC_DATE" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="ENC_WEIGHT_KG">
+		<type name="decimal" length="2" precision="1"/>
+	</column>
+	<column name="ENC_WEIGHT_VARIANCE_KG">
+		<type name="decimal" length="2" precision="1"/>
+	</column>
+	<column name="ENC_BMI_VALUE_KGM2">
+		<type name="decimal" length="2" precision="1"/>
+	</column>
+	<column name="ENC_BMI_VARIANCE_KG_M2">
+		<type name="decimal" length="2" precision="1"/>
+	</column>
+	<constraint name="Encounter_pk" type="pk-constr" table="public.&quot;Encounter&quot;">
+		<columns names="ENCOUNTER_ID" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="PAT_ID_Patient" index="6"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="Patient_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="Patient_has_many_Encounter" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a47a6b"
+	 src-table="public.&quot;Patient&quot;"
+	 dst-table="public.&quot;Encounter&quot;"
+	 src-required="true" dst-required="false"/>
+
+<table name="Provider" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1060" y="40"/>
+	<column name="PROV_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="PROV_TYPE" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="PROV_LNAME" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="PROV_FNAME" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="PROV_PHONE" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="PROV_ADDRESS_LINE1" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="PROV_ADDRESS_LINE2">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="PROV_CITY" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<column name="PROV_STATE" not-null="true">
+		<type name="varchar" length="2"/>
+	</column>
+	<column name="PROV_ZIP" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<constraint name="Provider_pk" type="pk-constr" table="public.&quot;Provider&quot;">
+		<columns names="PROV_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Provider_has_many_Encounter" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e9d6c6"
+	 src-table="public.&quot;Provider&quot;"
+	 dst-table="public.&quot;Encounter&quot;"
+	 src-required="true" dst-required="false"/>
+
+<table name="Bariatric_Hospitalization" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="560" y="40"/>
+	<column name="BH_VISIT_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="BH_HOSPITAL_NAME" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="BH_ADMIT_DATE" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="BH_SURGERY_DATE" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="BH_SURGERY_PROCEDURE" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="BH_DISCHARGE_DATE">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="Bariatric_Hospitalization_pk" type="pk-constr" table="public.&quot;Bariatric_Hospitalization&quot;">
+		<columns names="BH_VISIT_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Patient_has_many_Bariatric_Hospitalization" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#b7636a"
+	 src-table="public.&quot;Patient&quot;"
+	 dst-table="public.&quot;Bariatric_Hospitalization&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Provider_has_many_Bariatric_Hospitalization" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#be5bfe"
+	 src-table="public.&quot;Provider&quot;"
+	 dst-table="public.&quot;Bariatric_Hospitalization&quot;"
+	 src-required="true" dst-required="false"/>
+
+<table name="Lab_Result" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="580"/>
+	<column name="LAB_RESULT_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="LAB_RESULT_VALUE" not-null="true">
+		<type name="decimal" length="2" precision="2"/>
+	</column>
+	<column name="LAB_RESULT_UNIT_OF_MEASURE" not-null="true">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="LAB_RESULT_DATE" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="Lab_Result_pk" type="pk-constr" table="public.&quot;Lab_Result&quot;">
+		<columns names="LAB_RESULT_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="Lab_Test" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="940"/>
+	<column name="LAB_TEST_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="LAB_TEST_NAME" not-null="true">
+		<type name="varchar" length="30"/>
+	</column>
+	<constraint name="Lab_Test_pk" type="pk-constr" table="public.&quot;Lab_Test&quot;">
+		<columns names="LAB_TEST_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Lab_Test_has_many_Lab_Result" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a627d1"
+	 src-table="public.&quot;Lab_Test&quot;"
+	 dst-table="public.&quot;Lab_Result&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Encounter_has_many_Lab_Result" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#040e67"
+	 src-table="public.&quot;Encounter&quot;"
+	 dst-table="public.&quot;Lab_Result&quot;"
+	 src-required="true" dst-required="false"/>
+
+<table name="ENC_COMP" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1040" y="580"/>
+	<column name="ENC_COMP_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="ENC_COMP_START_DATE" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="ENC_COMP_END_DATE">
+		<type name="date" length="0"/>
+	</column>
+	<column name="ENC_COMP_SEVERITY">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="ENC_COMP_NEW_YN" not-null="true">
+		<type name="varchar" length="1"/>
+	</column>
+	<column name="ENC_COMP_BH_RELATED_YN" not-null="true">
+		<type name="varchar" length="1"/>
+	</column>
+	<constraint name="ENC_COMP_pk" type="pk-constr" table="public.&quot;ENC_COMP&quot;">
+		<columns names="ENC_COMP_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="COMPLICATION" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1060" y="940"/>
+	<column name="COMP_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="COMP_NAME" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="COMPLICATION_pk" type="pk-constr" table="public.&quot;COMPLICATION&quot;">
+		<columns names="COMP_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="COMPLICATION_has_many_ENC_COMP" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#84baaf"
+	 src-table="public.&quot;COMPLICATION&quot;"
+	 dst-table="public.&quot;ENC_COMP&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Encounter_has_many_ENC_COMP" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e881db"
+	 src-table="public.&quot;Encounter&quot;"
+	 dst-table="public.&quot;ENC_COMP&quot;"
+	 src-required="true" dst-required="false"/>
+
+</dbmodel>

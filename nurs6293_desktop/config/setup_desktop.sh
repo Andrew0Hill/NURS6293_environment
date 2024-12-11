@@ -19,6 +19,23 @@ do
     fi
 done
 
+# Create the data models folder.
+DATA_MODELS_DIR="/config/Desktop/data_models"
+mkdir -p "$DATA_MODELS_DIR"
+# List of models to copy.
+DATA_MODELS=("Bariatric Surgery.dbm")
+
+for DATA_MODEL in "${DATA_MODELS[@]}"
+do
+    MODEL_PATH="$DATA_MODELS_DIR/$DATA_MODEL"
+    if [[ ! -f "$MODEL_PATH" ]]
+    then
+        cp "/programs/data_models/$DATA_MODEL" "$MODEL_PATH"
+    fi
+done
+# Make the data_models directory read-only
+chmod -R 555 "$DATA_MODELS_DIR"
+
 # Make the autostart folder if it doesn't exist
 mkdir -p "/config/.config/autostart" 
 
@@ -26,7 +43,16 @@ mkdir -p "/config/.config/autostart"
 if [[ ! -f "/config/.config/autostart/set_background.desktop" ]]
 then
     cp "$LAUNCHER_ROOT/set_background.desktop" "/config/.config/autostart/" && \
-    chown -hR abc:abc /config/.config/autostart
+    chown -hR abc:abc "/config/.config/autostart"
+fi
+
+# Set up the bookmarks for the Caja file manager.
+mkdir -p "/config/.config/gtk-3.0" 
+if [[ ! -f "/config/.config/gtk-3.0/bookmarks" ]]
+then
+    echo "file:///config/Desktop/data_models" >> "/config/.config/gtk-3.0/bookmarks"
+    echo "file:///config/Desktop/host_shared" >> "/config/.config/gtk-3.0/bookmarks"
+    chown -hR abc:abc "/config/.config/gtk-3.0"
 fi
 
 # if [[ ! -f "/config/.config/mimeapps.list" ]]
