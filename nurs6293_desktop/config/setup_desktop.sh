@@ -20,7 +20,7 @@ do
 done
 
 # Create the data models folder.
-DATA_MODELS_DIR="/config/Desktop/data_models"
+DATA_MODELS_DIR="/config/Desktop/host_shared/data_models"
 mkdir -p "$DATA_MODELS_DIR"
 # List of models to copy.
 DATA_MODELS=("Bariatric Surgery.dbm")
@@ -34,7 +34,7 @@ do
     fi
 done
 # Make the data_models directory read-only
-chmod -R 555 "$DATA_MODELS_DIR"
+#chmod -R 555 "$DATA_MODELS_DIR"
 
 # Make the autostart folder if it doesn't exist
 mkdir -p "/config/.config/autostart" 
@@ -50,7 +50,7 @@ fi
 mkdir -p "/config/.config/gtk-3.0" 
 if [[ ! -f "/config/.config/gtk-3.0/bookmarks" ]]
 then
-    echo "file:///config/Desktop/data_models" >> "/config/.config/gtk-3.0/bookmarks"
+    echo "file:///config/Desktop/host_shared/data_models" >> "/config/.config/gtk-3.0/bookmarks"
     echo "file:///config/Desktop/host_shared" >> "/config/.config/gtk-3.0/bookmarks"
     chown -hR abc:abc "/config/.config/gtk-3.0"
 fi
