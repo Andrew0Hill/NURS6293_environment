@@ -11,6 +11,8 @@ do
             SKIP_PULL=1
             ;;
         *)
+            echo "Unknown option: '${arg}'"
+            exit 1
             ;;
     esac
 done
