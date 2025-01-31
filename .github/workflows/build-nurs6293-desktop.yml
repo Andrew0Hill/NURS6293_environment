@@ -2,7 +2,7 @@ name: build-nurs6293-desktop
 
 on:
   release: 
-    types: [published]
+    types: [released]
 
 jobs:
   docker-build:

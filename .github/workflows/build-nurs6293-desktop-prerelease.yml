@@ -1,8 +1,8 @@
-name: build-nurs6293-database
+name: build-nurs6293-desktop
 
 on:
   release: 
-    types: [released]
+    types: [prereleased]
 
 jobs:
   docker-build:
@@ -19,18 +19,21 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
+
       - name: Pull repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
+      
+      - name: Pull artifact binaries
+        run: gh release download v1.1 --repo Andrew0Hill/nurs6293_binaries --pattern '*.tar.gz' --pattern '*.jar' --dir ./nurs6293_desktop/artifacts
+        env:
+          GH_TOKEN: ${{ secrets.BINARY_REPO_TOKEN }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64, linux/arm64
-          context: ./nurs6293_database
+          context: ./nurs6293_desktop
           push: true
           tags: |
-            andrew2hill/nurs6293_database:${{ github.ref_name }}
-            andrew2hill/nurs6293_database:latest
+            andrew2hill/nurs6293_desktop_dev:${{ github.ref_name }}
+            andrew2hill/nurs6293_desktop_dev:latest

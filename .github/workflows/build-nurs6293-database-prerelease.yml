@@ -2,7 +2,7 @@ name: build-nurs6293-database
 
 on:
   release: 
-    types: [released]
+    types: [prereleased]
 
 jobs:
   docker-build:
@@ -32,5 +32,5 @@ jobs:
           context: ./nurs6293_database
           push: true
           tags: |
-            andrew2hill/nurs6293_database:${{ github.ref_name }}
-            andrew2hill/nurs6293_database:latest
+            andrew2hill/nurs6293_database_dev:${{ github.ref_name }}
+            andrew2hill/nurs6293_database_dev:latest
