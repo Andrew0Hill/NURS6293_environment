@@ -23,7 +23,7 @@ done
 DATA_MODELS_DIR="/config/Desktop/host_shared/data_models"
 mkdir -p "$DATA_MODELS_DIR"
 # List of models to copy.
-DATA_MODELS=("Bariatric Surgery.dbm")
+DATA_MODELS=("Bariatric Surgery.dbm" "EMR_EncounterBased_V2.dbm")
 
 for DATA_MODEL in "${DATA_MODELS[@]}"
 do

@@ -4,7 +4,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
 <dbmodel pgmodeler-ver="1.1.4" use-changelog="false" max-obj-count="9"
-	 last-position="0,0" last-zoom="0.7" scene-rect="0,0,1570.8,1077.72"
+	 last-position="0,203" last-zoom="0.7" scene-rect="0,0,1570.8,1077.72"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -86,20 +86,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="PAT_ID_Patient" index="6"/>
+		<object name="PAT_ID" index="6"/>
 	</customidxs>
 	<customidxs object-type="constraint">
 		<object name="Patient_fk" index="1"/>
 	</customidxs></table>
-
-<relationship name="Patient_has_many_Encounter" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#a47a6b"
-	 src-table="public.&quot;Patient&quot;"
-	 dst-table="public.&quot;Encounter&quot;"
-	 src-required="true" dst-required="false"/>
 
 <table name="Provider" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="public"/>
@@ -140,15 +131,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<relationship name="Provider_has_many_Encounter" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#e9d6c6"
-	 src-table="public.&quot;Provider&quot;"
-	 dst-table="public.&quot;Encounter&quot;"
-	 src-required="true" dst-required="false"/>
-
 <table name="Bariatric_Hospitalization" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
@@ -175,24 +157,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<columns names="BH_VISIT_ID" ref-type="src-columns"/>
 	</constraint>
 </table>
-
-<relationship name="Patient_has_many_Bariatric_Hospitalization" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#b7636a"
-	 src-table="public.&quot;Patient&quot;"
-	 dst-table="public.&quot;Bariatric_Hospitalization&quot;"
-	 src-required="true" dst-required="false"/>
-
-<relationship name="Provider_has_many_Bariatric_Hospitalization" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#be5bfe"
-	 src-table="public.&quot;Provider&quot;"
-	 dst-table="public.&quot;Bariatric_Hospitalization&quot;"
-	 src-required="true" dst-required="false"/>
 
 <table name="Lab_Result" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
@@ -229,24 +193,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<columns names="LAB_TEST_ID" ref-type="src-columns"/>
 	</constraint>
 </table>
-
-<relationship name="Lab_Test_has_many_Lab_Result" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#a627d1"
-	 src-table="public.&quot;Lab_Test&quot;"
-	 dst-table="public.&quot;Lab_Result&quot;"
-	 src-required="true" dst-required="false"/>
-
-<relationship name="Encounter_has_many_Lab_Result" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#040e67"
-	 src-table="public.&quot;Encounter&quot;"
-	 dst-table="public.&quot;Lab_Result&quot;"
-	 src-required="true" dst-required="false"/>
 
 <table name="ENC_COMP" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="public"/>
@@ -290,21 +236,75 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<relationship name="COMPLICATION_has_many_ENC_COMP" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
+<relationship name="Patient_has_many_Bariatric_Hospitalization" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#84baaf"
-	 src-table="public.&quot;COMPLICATION&quot;"
-	 dst-table="public.&quot;ENC_COMP&quot;"
+	 custom-color="#10cd6e"
+	 src-table="public.&quot;Patient&quot;"
+	 dst-table="public.&quot;Bariatric_Hospitalization&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Patient_has_many_Encounter" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ad2cb4"
+	 src-table="public.&quot;Patient&quot;"
+	 dst-table="public.&quot;Encounter&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Provider_has_many_Bariatric_Hospitalization" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#324b72"
+	 src-table="public.&quot;Provider&quot;"
+	 dst-table="public.&quot;Bariatric_Hospitalization&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Provider_has_many_Encounter" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#022657"
+	 src-table="public.&quot;Provider&quot;"
+	 dst-table="public.&quot;Encounter&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Encounter_has_many_Lab_Result" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#186ba9"
+	 src-table="public.&quot;Encounter&quot;"
+	 dst-table="public.&quot;Lab_Result&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="Lab_Test_has_many_Lab_Result" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#80dfd7"
+	 src-table="public.&quot;Lab_Test&quot;"
+	 dst-table="public.&quot;Lab_Result&quot;"
 	 src-required="true" dst-required="false"/>
 
 <relationship name="Encounter_has_many_ENC_COMP" type="rel1n" layers="0"
-	 src-col-pattern="{sc}_{st}"
+	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#e881db"
+	 custom-color="#f03169"
 	 src-table="public.&quot;Encounter&quot;"
+	 dst-table="public.&quot;ENC_COMP&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="COMPLICATION_has_many_ENC_COMP" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#495d68"
+	 src-table="public.&quot;COMPLICATION&quot;"
 	 dst-table="public.&quot;ENC_COMP&quot;"
 	 src-required="true" dst-required="false"/>
 
