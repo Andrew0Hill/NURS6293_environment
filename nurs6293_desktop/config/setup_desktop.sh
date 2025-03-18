@@ -24,15 +24,29 @@ DATA_MODELS_DIR="/config/Desktop/host_shared/data_models"
 mkdir -p "$DATA_MODELS_DIR"
 # List of models to copy.
 DATA_MODELS=("Bariatric Surgery.dbm" "EMR_EncounterBased_V2.dbm")
-
+# Iterate and copy.
 for DATA_MODEL in "${DATA_MODELS[@]}"
 do
     MODEL_PATH="$DATA_MODELS_DIR/$DATA_MODEL"
-    if [[ ! -f "$MODEL_PATH" ]]
-    then
-        cp "/programs/data_models/$DATA_MODEL" "$MODEL_PATH"
-    fi
+    cp --no-clobber "/programs/data_models/$DATA_MODEL" "$MODEL_PATH"
+    # if [[ ! -f "$MODEL_PATH" ]]
+    # then
+    #     cp "/programs/data_models/$DATA_MODEL" "$MODEL_PATH"
+    # fi
 done
+
+# Create the SQL scripts folder.
+SQL_SCRIPTS_DIR="/config/Desktop/host_shared/sql_scripts"
+mkdir -p "$SQL_SCRIPTS_DIR"
+# Scripts to copy.
+SQL_SCRIPTS=("htn_encounter_counts.sql" "htn_linelist_first.sql" "htn_linelist.sql")
+# Iterate and copy.
+for SQL_SCRIPT in "${SQL_SCRIPTS[@]}"
+do
+    SCRIPT_PATH="$SQL_SCRIPTS_DIR/$SQL_SCRIPT"
+    cp --no-clobber "/programs/config_files/birt/demo/sql/$SQL_SCRIPT" "$SCRIPT_PATH"
+done
+
 # Make the data_models directory read-only
 #chmod -R 555 "$DATA_MODELS_DIR"
 
@@ -51,6 +65,8 @@ mkdir -p "/config/.config/gtk-3.0"
 if [[ ! -f "/config/.config/gtk-3.0/bookmarks" ]]
 then
     echo "file:///config/Desktop/host_shared/data_models" >> "/config/.config/gtk-3.0/bookmarks"
+    echo "file:///config/Desktop/host_shared/sql_scripts" >> "/config/.config/gtk-3.0/bookmarks"
+    echo "file:///config/Desktop/host_shared/birt_workspace" >> "/config/.config/gtk-3.0/bookmarks"
     echo "file:///config/Desktop/host_shared" >> "/config/.config/gtk-3.0/bookmarks"
     chown -hR abc:abc "/config/.config/gtk-3.0"
 fi

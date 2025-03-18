@@ -82,8 +82,11 @@ ARG ECLIPSE_PREFS="birt/org.eclipse.ui.ide.prefs"
 COPY "config/${ECLIPSE_PREFS}" "config_files/${ECLIPSE_PREFS}"
 
 # BIRT workspace
-ARG BIRT_WORKSPACE_TAR="birt/workspace.tar.gz"
+ARG BIRT_WORKSPACE_TAR="birt/birt_workspace.tar.gz"
 COPY "config/${BIRT_WORKSPACE_TAR}" "config_files/${BIRT_WORKSPACE_TAR}" 
+
+# BIRT demo resources
+ADD "config/birt/resources" "config_files/birt/"
 
 # pgModeler config files can be copied in all together.
 ADD "config/pgmodeler/config_files" "config_files/pgmodeler"
