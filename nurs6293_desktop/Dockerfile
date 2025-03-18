@@ -13,7 +13,7 @@ RUN mv eclipse/ birt/
 ARG DBEAVER_ARM64_BINARY="dbeaver-ce-latest-linux.gtk.aarch64-nojdk.tar.gz"
 ADD "artifacts/${DBEAVER_ARM64_BINARY}" .
 
-# Install pgModeler (AMD64)
+# Install pgModeler (ARM64)
 ARG PGMODELER_ARM64_BINARY="pgmodeler_arm64.tar.gz"
 ADD "artifacts/${PGMODELER_ARM64_BINARY}" /
 #RUN cd /pgmodeler_src && make install && cd / && rm -rf pgmodeler_src
@@ -44,6 +44,9 @@ FROM build-${TARGETARCH} AS build-common
 
 # Make this directory, which is required for openjdk-17-jre to install correctly.
 RUN mkdir -p /usr/share/man/man1
+
+# Update the BIRT directory ownership.
+RUN chown -hR root:root /programs/birt/
 
 # Install all dependencies needed for installed programs.
 RUN apt update && apt install -y openjdk-17-jre \
