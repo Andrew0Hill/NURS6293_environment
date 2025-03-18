@@ -40,17 +40,17 @@ fi
 
 # Copy the custom templates into the birt program directory.
 BIRT_TEMPLATE_DIR="/programs/birt/plugins/org.eclipse.birt.resources_4.16.0.v202406141054/templates"
-CUSTOM_TEMPLATE_DIR="/programs/config_files/birt/resources/templates"
+CUSTOM_TEMPLATE_DIR="/programs/config_files/birt/templates"
 
 # List of templates we should copy.
 CUSTOM_TEMPLATE_PATHS=($(find "$CUSTOM_TEMPLATE_DIR" -name "*.rpttemplate"))
 
 # Copy each custom template in to replate the original BIRT template.
-# Never overwrite these files.
+# We will overwrite the older files that exist already.
 for CUSTOM_TEMPLATE_PATH in "${CUSTOM_TEMPLATE_PATHS[@]}"
 do
     CUSTOM_TEMPLATE_NAME=$(basename "$CUSTOM_TEMPLATE_PATH")
-    cp --no-clobber "$CUSTOM_TEMPLATE_PATH" "${BIRT_TEMPLATE_DIR}/${CUSTOM_TEMPLATE_NAME}"
+    cp --update "$CUSTOM_TEMPLATE_PATH" "${BIRT_TEMPLATE_DIR}/${CUSTOM_TEMPLATE_NAME}"
 done
 
 # Modify directory ownership for both directories.
