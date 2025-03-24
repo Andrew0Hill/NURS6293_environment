@@ -1,0 +1,4 @@
+*.sql
+*.tar.gz
+Scripts/orig_nurs6293_createdb.sql.gz
+*.log
