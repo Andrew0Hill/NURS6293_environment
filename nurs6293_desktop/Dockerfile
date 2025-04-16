@@ -7,7 +7,7 @@ WORKDIR /programs
 # Install BIRT (ARM64)
 ARG BIRT_ARM64_BINARY="birt-report-designer-all-in-one-4.16.0-202406141054-linux.gtk.aarch64.tar.gz"
 ADD "artifacts/${BIRT_ARM64_BINARY}" .
-RUN mv eclipse/ birt/
+RUN mv eclipse/ birt/ && echo "-XX:UseSVE=0" >> birt/birt.ini
 
 # Install DBeaver (ARM64)
 ARG DBEAVER_ARM64_BINARY="dbeaver-ce-latest-linux.gtk.aarch64-nojdk.tar.gz"
